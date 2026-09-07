@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:#090A0B;color:#F3F3EE;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#B8FF3D;color:#090A0B;}
+  a{color:#F3F3EE;text-decoration:none;}
+  p{text-wrap:pretty;}
+  input,textarea{font-family:'Inter',sans-serif;}
+  input::placeholder,textarea::placeholder{color:#5b6065;}
+  input:focus,textarea:focus{outline:none;border-color:rgba(243,243,238,0.4)!important;}
+</style>
+</helmet>
+<div style="background:#090A0B;color:#F3F3EE;min-height:100vh;display:flex;flex-direction:column;">
+
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(16px,4vw,32px);border-bottom:1px solid rgba(243,243,238,0.08);">
+    <span></span>
+    <a href="../Dashboard/dashboard-active.dc.html" style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#8B9095;">CANCEL</a>
+  </header>
+
+  <main style="flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(36px,7vh,80px) 24px;">
+    <div style="width:100%;max-width:460px;">
+
+      <div style="display:flex;gap:5px;height:2px;margin-bottom:40px;">
+        <span style="flex:1;height:2px;border-radius:2px;background:#F3F3EE;"></span>
+        <span style="flex:1;height:2px;border-radius:2px;background:#26292c;"></span>
+        <span style="flex:1;height:2px;border-radius:2px;background:#26292c;"></span>
+      </div>
+
+      <h1 style="font-size:clamp(28px,6.5vw,38px);line-height:1.06;letter-spacing:-0.03em;font-weight:600;margin:0 0 12px;">What are you building?</h1>
+      <p style="font-size:17px;line-height:1.5;color:#8B9095;margin:0 0 38px;">Give your build a name and a short description. This is the record that gets verified later.</p>
+
+      <div style="display:flex;flex-direction:column;gap:22px;margin-bottom:38px;">
+        <div>
+          <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#F3F3EE;margin-bottom:9px;">BUILD NAME</label>
+          <input type="text" placeholder="e.g. Monad Payment Router" style="width:100%;background:#131517;border:1px solid rgba(243,243,238,0.14);border-radius:7px;padding:14px 16px;font-size:16px;color:#F3F3EE;">
+        </div>
+        <div>
+          <label style="display:block;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#F3F3EE;margin-bottom:9px;">DESCRIPTION</label>
+          <textarea rows="3" placeholder="A short line on what this build does. You can add more detail later." style="width:100%;background:#131517;border:1px solid rgba(243,243,238,0.14);border-radius:7px;padding:14px 16px;font-size:16px;color:#F3F3EE;line-height:1.5;resize:vertical;"></textarea>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+        <a href="../Dashboard/dashboard-active.dc.html" style="font-size:15px;font-weight:500;color:#8B9095;">Cancel</a>
+        <a href="02-connect-work.dc.html" style="display:inline-block;font-size:15px;font-weight:550;color:#090A0B;background:#F3F3EE;border-radius:7px;padding:14px 30px;">Continue</a>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

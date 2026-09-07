@@ -1,0 +1,41 @@
+# Environmental & Sensitive Files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+secrets.*
+
+# OS & System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+.thumbnail
+
+# Dependencies & Build Artifacts
+node_modules/
+dist/
+build/
+.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Reference & Competitive Screenshots (Excluded)
+Reference/
+references/
+
+# Temporary Scraps & Root Assets (Excluded)
+scraps/
+/assets/
+
+# Generated Screenshots & Screen Captures (Excluded)
+**/Screenshot_*.jpg
+**/Screenshot_*.png
+**/Screenshot_*.jpeg
+
+# IDE & Editor Directories
+.gemini/
+.vscode/
+.idea/

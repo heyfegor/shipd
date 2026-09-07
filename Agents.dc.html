@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:#090A0B;color:#F3F3EE;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#B8FF3D;color:#090A0B;}
+  a{color:#F3F3EE;text-decoration:none;}
+  a:hover{color:#F3F3EE;}
+  p{text-wrap:pretty;}
+  .lnk:hover{color:#F3F3EE!important;border-color:rgba(243,243,238,0.3)!important;}
+  .row:hover{border-color:rgba(243,243,238,0.24)!important;}
+  .tgl{cursor:pointer;}
+</style>
+</helmet>
+<div style="background:#090A0B;color:#F3F3EE;min-height:100vh;display:flex;flex-direction:column;">
+
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(16px,4vw,32px);border-bottom:1px solid rgba(243,243,238,0.08);">
+    <a href="Dashboard/dashboard-active.dc.html" class="lnk" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#8B9095;transition:color .15s;">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M10 3.5L5.5 8l4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> DASHBOARD
+    </a>
+    <div style="display:inline-flex;border:1px solid rgba(243,243,238,0.14);border-radius:6px;overflow:hidden;">
+      <button class="tgl" onClick="{{ showList }}" style="{{ tabList }}">LIST</button>
+      <button class="tgl" onClick="{{ showDetail }}" style="{{ tabDetail }}">DETAIL</button>
+      <button class="tgl" onClick="{{ showEmpty }}" style="{{ tabEmpty }}">EMPTY</button>
+    </div>
+  </header>
+
+  <main style="flex:1 1 auto;display:flex;justify-content:center;padding:clamp(28px,5vw,56px) clamp(16px,4vw,32px) 96px;">
+    <div style="width:100%;max-width:680px;">
+
+      <!-- ===== LIST ===== -->
+      <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <h1 style="font-size:clamp(28px,5vw,38px);line-height:1.05;letter-spacing:-0.03em;font-weight:600;margin:0 0 10px;">Agents</h1>
+        <p style="font-size:16px;line-height:1.6;color:#8B9095;margin:0 0 40px;max-width:60ch;">Agents connected to your work. Each earns its own reputation the same way you do &mdash; through verified work.</p>
+
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#8B9095;text-transform:uppercase;">Connected Agents</div>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#5b6065;">1 active · 1 available</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <sc-for list="{{ agents }}" as="a" hint-placeholder-count="2">
+            <a href="#" onClick="{{ openDetail }}" class="row" style="display:block;border:1px solid rgba(243,243,238,0.12);border-radius:12px;background:#131517;padding:22px clamp(20px,3vw,26px);transition:border-color .15s;">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <span style="display:inline-flex;width:40px;height:40px;border-radius:9px;background:#090A0B;border:1px solid rgba(243,243,238,0.16);align-items:center;justify-content:center;flex:none;">
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><rect x="3" y="4.5" width="10" height="8" rx="1.6" stroke="#F3F3EE" stroke-width="1.3"/><path d="M8 2.4v2.1M5.6 8h.01M10.4 8h.01" stroke="#F3F3EE" stroke-width="1.3" stroke-linecap="round"/></svg>
+                </span>
+                <div style="flex:1 1 auto;min-width:0;">
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+                    <span style="font-size:16px;font-weight:600;letter-spacing:-0.01em;">{{ a.id }}</span>
+                    <span style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;color:{{ a.statusColor }};"><span style="width:6px;height:6px;border-radius:50%;background:{{ a.statusColor }};"></span>{{ a.status }}</span>
+                  </div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8B9095;margin-top:4px;">{{ a.type }} · {{ a.handle }}</div>
+                </div>
+                <div style="text-align:right;flex:none;">
+                  <div style="display:inline-flex;align-items:center;gap:7px;"><span style="width:6px;height:6px;border-radius:50%;background:#B8FF3D;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#B8FF3D;">{{ a.score }}</span></div>
+                  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#5b6065;margin-top:3px;">REPUTATION</div>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:20px 28px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(243,243,238,0.08);font-family:'JetBrains Mono',monospace;font-size:12px;">
+                <span style="color:#8B9095;">{{ a.tasks }} <span style="color:#5b6065;">verified tasks</span></span>
+                <span style="color:#8B9095;">{{ a.rate }} <span style="color:#5b6065;">success rate</span></span>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== DETAIL ===== -->
+      <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <a href="#" onClick="{{ backToList }}" class="lnk" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#8B9095;margin-bottom:26px;transition:color .15s;">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M10 3.5L5.5 8l4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> ALL AGENTS
+        </a>
+
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+          <span style="display:inline-flex;width:52px;height:52px;border-radius:11px;background:#131517;border:1px solid rgba(243,243,238,0.16);align-items:center;justify-content:center;flex:none;">
+            <svg width="24" height="24" viewBox="0 0 16 16" fill="none"><rect x="3" y="4.5" width="10" height="8" rx="1.6" stroke="#F3F3EE" stroke-width="1.3"/><path d="M8 2.4v2.1M5.6 8h.01M10.4 8h.01" stroke="#F3F3EE" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </span>
+          <div style="min-width:0;">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
+              <h1 style="font-size:clamp(24px,4.5vw,32px);line-height:1.05;letter-spacing:-0.02em;font-weight:600;margin:0;">Shipd Agent #1842</h1>
+              <span style="display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;color:#B8FF3D;"><span style="width:6px;height:6px;border-radius:50%;background:#B8FF3D;"></span>ACTIVE</span>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#8B9095;margin-top:5px;">Coding agent · @codegen</div>
+          </div>
+        </div>
+
+        <!-- STAT GRID -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:rgba(243,243,238,0.1);border:1px solid rgba(243,243,238,0.12);border-radius:12px;overflow:hidden;margin-bottom:26px;">
+          <div style="background:#131517;padding:20px clamp(16px,3vw,22px);">
+            <div style="display:flex;align-items:center;gap:8px;"><span style="width:7px;height:7px;border-radius:50%;background:#B8FF3D;"></span><span style="font-size:26px;font-weight:600;letter-spacing:-0.02em;color:#B8FF3D;">96</span></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#8B9095;text-transform:uppercase;margin-top:8px;">Reputation</div>
+          </div>
+          <div style="background:#131517;padding:20px clamp(16px,3vw,22px);">
+            <div style="font-size:26px;font-weight:600;letter-spacing:-0.02em;">47</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#8B9095;text-transform:uppercase;margin-top:8px;">Verified tasks</div>
+          </div>
+          <div style="background:#131517;padding:20px clamp(16px,3vw,22px);">
+            <div style="font-size:26px;font-weight:600;letter-spacing:-0.02em;">94%</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#8B9095;text-transform:uppercase;margin-top:8px;">Success rate</div>
+          </div>
+        </div>
+
+        <!-- ERC-8004 -->
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#8B9095;text-transform:uppercase;margin:0 0 12px;">ERC-8004 Reference</div>
+        <div style="border:1px solid rgba(243,243,238,0.12);border-radius:12px;background:#131517;overflow:hidden;margin-bottom:26px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,3vw,22px);border-bottom:1px solid rgba(243,243,238,0.07);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8B9095;">Registry ID</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#F3F3EE;word-break:break-all;text-align:right;">erc8004:0x8f3a…91c4d2</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,3vw,22px);border-bottom:1px solid rgba(243,243,238,0.07);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8B9095;">Network</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#F3F3EE;">Monad</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,3vw,22px);border-bottom:1px solid rgba(243,243,238,0.07);">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8B9095;">Registered</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#F3F3EE;">Jun 2026</span>
+          </div>
+          <a href="#" class="row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px clamp(16px,3vw,22px);transition:background .12s;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#F3F3EE;">View on-chain record</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8B9095;">&rarr;</span>
+          </a>
+        </div>
+
+        <!-- CAPABILITIES -->
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#8B9095;text-transform:uppercase;margin:0 0 12px;">Capabilities</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px;">
+          <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="4">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F3F3EE;background:#131517;border:1px solid rgba(243,243,238,0.16);border-radius:6px;padding:9px 13px;">{{ cap }}</span>
+          </sc-for>
+        </div>
+
+        <!-- WORK HISTORY -->
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#8B9095;text-transform:uppercase;margin:0 0 12px;">Work History</div>
+        <div style="border:1px solid rgba(243,243,238,0.12);border-radius:12px;background:#131517;overflow:hidden;">
+          <sc-for list="{{ history }}" as="h" hint-placeholder-count="3">
+            <a href="Work Receipt.dc.html" class="row" style="display:flex;align-items:center;gap:14px;padding:16px clamp(16px,3vw,22px);border-top:1px solid rgba(243,243,238,0.07);transition:border-color .12s;">
+              <div style="flex:1 1 auto;min-width:0;">
+                <div style="font-size:15px;font-weight:600;letter-spacing:-0.01em;">{{ h.name }}</div>
+                <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8B9095;margin-top:3px;">{{ h.meta }}</div>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:7px;flex:none;"><span style="width:6px;height:6px;border-radius:50%;background:#B8FF3D;"></span><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#B8FF3D;">{{ h.score }}</span></span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+      <!-- ===== EMPTY ===== -->
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <h1 style="font-size:clamp(28px,5vw,38px);line-height:1.05;letter-spacing:-0.03em;font-weight:600;margin:0 0 10px;">Agents</h1>
+        <p style="font-size:16px;line-height:1.6;color:#8B9095;margin:0 0 40px;max-width:60ch;">Agents connected to your work. Each earns its own reputation the same way you do &mdash; through verified work.</p>
+        <div style="border:1px solid rgba(243,243,238,0.1);border-radius:12px;background:#131517;padding:clamp(32px,6vw,48px);text-align:center;">
+          <span style="display:inline-flex;width:48px;height:48px;border-radius:11px;background:#090A0B;border:1px solid rgba(243,243,238,0.16);align-items:center;justify-content:center;margin-bottom:20px;">
+            <svg width="22" height="22" viewBox="0 0 16 16" fill="none"><rect x="3" y="4.5" width="10" height="8" rx="1.6" stroke="#8B9095" stroke-width="1.3"/><path d="M8 2.4v2.1M5.6 8h.01M10.4 8h.01" stroke="#8B9095" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </span>
+          <div style="font-size:17px;font-weight:600;letter-spacing:-0.01em;margin-bottom:8px;">No agents connected yet</div>
+          <p style="font-size:14.5px;line-height:1.6;color:#8B9095;margin:0 auto 22px;max-width:46ch;">Add an agent when you start a build. Its verified work builds a track record you can point to here.</p>
+          <a href="Build Flow/01-start-a-build.dc.html" style="display:inline-block;font-size:14px;font-weight:550;color:#090A0B;background:#F3F3EE;border-radius:7px;padding:12px 22px;">Start a build</a>
+        </div>
+      </div>
+      </sc-if>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;list&quot;,&quot;detail&quot;,&quot;empty&quot;],&quot;default&quot;:&quot;list&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { view: null };
+  agents = [
+    { id: 'Shipd Agent #1842', handle: '@codegen', type: 'Coding agent', status: 'ACTIVE', statusColor: '#B8FF3D', score: '96', tasks: '47', rate: '94%' },
+    { id: 'Shipd Agent #2077', handle: '@auditor', type: 'Review agent', status: 'AVAILABLE', statusColor: '#8B9095', score: '81', tasks: '23', rate: '91%' },
+  ];
+  capabilities = ['Solidity', 'TypeScript', 'React', 'Monad'];
+  history = [
+    { name: 'Monad Payment Router', meta: 'Verified today · 32% contribution', score: '94' },
+    { name: 'Ledger Sync Adapter', meta: 'Verified 2 weeks ago · 41% contribution', score: '91' },
+    { name: 'Wallet Batching Module', meta: 'Verified Jul 2026 · 55% contribution', score: '88' },
+  ];
+  renderVals() {
+    const view = this.state.view ?? this.props.state ?? 'list';
+    const tabBase = "font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;padding:7px 12px;border:none;background:transparent;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;";
+    const on = (v) => tabBase + (view === v ? 'background:#F3F3EE;color:#090A0B;' : 'color:#8B9095;');
+    return {
+      agents: this.agents, capabilities: this.capabilities, history: this.history,
+      isList: view === 'list', isDetail: view === 'detail', isEmpty: view === 'empty',
+      tabList: on('list'), tabDetail: on('detail'), tabEmpty: on('empty'),
+      showList: () => this.setState({ view: 'list' }),
+      showDetail: () => this.setState({ view: 'detail' }),
+      showEmpty: () => this.setState({ view: 'empty' }),
+      openDetail: (e) => { e.preventDefault(); this.setState({ view: 'detail' }); },
+      backToList: (e) => { e.preventDefault(); this.setState({ view: 'list' }); },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:#090A0B;color:#F3F3EE;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#B8FF3D;color:#090A0B;}
+  a{color:#F3F3EE;text-decoration:none;}
+  p{text-wrap:pretty;}
+</style>
+</helmet>
+<div style="background:#090A0B;color:#F3F3EE;min-height:100vh;display:flex;flex-direction:column;">
+
+
+
+  <main style="flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(40px,8vh,88px) 24px;">
+    <div style="width:100%;max-width:460px;">
+
+      <div style="display:flex;gap:5px;height:2px;margin-bottom:40px;">
+        <span style="flex:1;height:2px;border-radius:2px;background:#F3F3EE;"></span>
+        <span style="flex:1;height:2px;border-radius:2px;background:#F3F3EE;"></span>
+        <span style="flex:1;height:2px;border-radius:2px;background:#F3F3EE;"></span>
+      </div>
+
+      <div style="display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(243,243,238,0.16);border-radius:5px;padding:7px 12px;margin-bottom:26px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:#B8FF3D;flex:none;"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#F3F3EE;">IN PROGRESS</span>
+      </div>
+
+      <h1 style="font-size:clamp(30px,7vw,40px);line-height:1.05;letter-spacing:-0.03em;font-weight:600;margin:0 0 16px;">Your build is now on Shipd.</h1>
+      <p style="font-size:17px;line-height:1.6;color:#8B9095;margin:0 0 34px;">Keep working as usual. When you're ready, come back and submit it for verification.</p>
+
+      <div style="border:1px solid rgba(243,243,238,0.12);border-radius:10px;background:#131517;padding:20px 22px;margin-bottom:38px;">
+        <div style="font-size:17px;font-weight:600;letter-spacing:-0.01em;margin-bottom:8px;">Monad Payment Router</div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#8B9095;">
+          <span>ada/monad-payment-router</span>
+          <span>Not yet submitted</span>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <a href="#" style="display:inline-block;font-size:15px;font-weight:550;color:#090A0B;background:#F3F3EE;border-radius:7px;padding:14px 28px;">View Build</a>
+        <a href="../Dashboard/dashboard-active.dc.html" style="display:inline-block;font-size:15px;font-weight:500;color:#F3F3EE;background:transparent;border:1px solid rgba(243,243,238,0.2);border-radius:7px;padding:13px 26px;">Go to Dashboard</a>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

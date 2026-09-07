@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:#090A0B;color:#F3F3EE;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  ::selection{background:#B8FF3D;color:#090A0B;}
+  a{color:#F3F3EE;text-decoration:none;}
+  a:hover{color:#F3F3EE;}
+  p{text-wrap:pretty;}
+  .lnk:hover{color:#F3F3EE!important;border-color:rgba(243,243,238,0.3)!important;}
+  .row:hover{background:#16181a!important;}
+  .tgl{cursor:pointer;}
+</style>
+</helmet>
+<div style="background:#090A0B;color:#F3F3EE;min-height:100vh;display:flex;flex-direction:column;">
+
+  <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px clamp(16px,4vw,32px);border-bottom:1px solid rgba(243,243,238,0.08);">
+    <a href="Dashboard/dashboard-active.dc.html" class="lnk" style="display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.06em;color:#8B9095;transition:color .15s;">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M10 3.5L5.5 8l4.5 4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg> DASHBOARD
+    </a>
+    <div style="display:inline-flex;border:1px solid rgba(243,243,238,0.14);border-radius:6px;overflow:hidden;">
+      <button class="tgl" onClick="{{ showFull }}" style="{{ tabFull }}">FULL HISTORY</button>
+      <button class="tgl" onClick="{{ showNew }}" style="{{ tabNew }}">NEW USER</button>
+    </div>
+  </header>
+
+  <main style="flex:1 1 auto;display:flex;justify-content:center;padding:clamp(28px,5vw,56px) clamp(16px,4vw,32px) 96px;">
+    <div style="width:100%;max-width:600px;">
+
+      <!-- IDENTITY -->
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:30px;">
+        <span style="display:inline-flex;width:44px;height:44px;border-radius:50%;background:#131517;border:1px solid rgba(243,243,238,0.14);align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:17px;color:#F3F3EE;flex:none;">A</span>
+        <div style="min-width:0;">
+          <div style="font-size:16px;font-weight:600;letter-spacing:-0.01em;">Ada Okonkwo</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8B9095;margin-top:2px;">@ada</div>
+        </div>
+      </div>
+
+      <!-- SCORE + STATUS -->
+      <div style="border:1px solid rgba(243,243,238,0.12);border-radius:12px;background:#131517;overflow:hidden;margin-bottom:30px;">
+        <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;padding:26px clamp(20px,3vw,28px) 22px;">
+          <div style="display:flex;align-items:flex-end;gap:18px;">
+            <div style="font-size:clamp(52px,12vw,64px);font-weight:600;letter-spacing:-0.03em;line-height:0.85;color:#F3F3EE;">{{ score }}</div>
+            <div style="padding-bottom:6px;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#8B9095;text-transform:uppercase;">Reputation</div>
+              <div style="display:flex;align-items:center;gap:7px;margin-top:7px;">
+                <span style="width:7px;height:7px;border-radius:50%;background:#B8FF3D;flex:none;"></span>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:0.04em;color:#F3F3EE;">{{ status }}</span>
+              </div>
+            </div>
+          </div>
+          <div style="padding-bottom:8px;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.04em;color:#B8FF3D;">{{ weekDelta }}</div>
+        </div>
+
+        <!-- SPARKLINE -->
+        <div style="padding:0 clamp(16px,3vw,24px) 18px;">
+          <svg viewBox="0 0 600 120" preserveAspectRatio="none" style="width:100%;height:88px;display:block;">
+            <polyline points="{{ sparkPoints }}" fill="none" stroke="#F3F3EE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+            <circle cx="{{ sparkLastX }}" cy="{{ sparkLastY }}" r="3.4" fill="#B8FF3D"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.06em;color:#5b6065;margin-top:8px;">
+            <span>{{ spanStart }}</span><span>TODAY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY LEDGER -->
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 12px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#8B9095;text-transform:uppercase;">History</div>
+      </div>
+      <div style="border:1px solid rgba(243,243,238,0.12);border-radius:12px;background:#131517;overflow:hidden;margin-bottom:14px;">
+        <sc-for list="{{ events }}" as="ev" hint-placeholder-count="5">
+          <div class="row" style="display:flex;align-items:flex-start;gap:14px;padding:16px clamp(16px,3vw,22px);border-top:1px solid rgba(243,243,238,0.07);transition:background .12s;">
+            <span style="width:9px;height:9px;border-radius:50%;background:{{ ev.dot }};flex:none;margin-top:5px;"></span>
+            <div style="flex:1 1 auto;min-width:0;">
+              <div style="font-size:14.5px;font-weight:500;color:#F3F3EE;letter-spacing:-0.01em;">{{ ev.title }}</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8B9095;margin-top:3px;">{{ ev.when }}</div>
+            </div>
+            <div style="text-align:right;font-family:'JetBrains Mono',monospace;white-space:nowrap;">
+              <div style="font-size:14.5px;font-weight:600;color:{{ ev.deltaColor }};">{{ ev.delta }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isNew }}" hint-placeholder-val="{{ false }}">
+      <p style="font-size:14px;line-height:1.6;color:#8B9095;margin:0 0 34px;">Your history builds as you ship and verify work. Every change to your score is recorded here.</p>
+      </sc-if>
+
+      <!-- VERIFIED WORK -->
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;color:#8B9095;text-transform:uppercase;margin:34px 0 12px;">Verified Work Backing This Score</div>
+      <div style="border:1px solid rgba(243,243,238,0.12);border-radius:12px;background:#131517;overflow:hidden;">
+        <sc-for list="{{ work }}" as="w" hint-placeholder-count="3">
+          <a href="Work Receipt.dc.html" class="row" style="display:flex;align-items:center;gap:14px;padding:16px clamp(16px,3vw,22px);border-top:1px solid rgba(243,243,238,0.07);transition:background .12s;">
+            <div style="flex:1 1 auto;min-width:0;">
+              <div style="font-size:15px;font-weight:600;letter-spacing:-0.01em;color:#F3F3EE;">{{ w.name }}</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#8B9095;margin-top:3px;">{{ w.meta }}</div>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:7px;flex:none;">
+              <span style="width:6px;height:6px;border-radius:50%;background:#B8FF3D;"></span>
+              <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#B8FF3D;">{{ w.score }}</span>
+            </span>
+          </a>
+        </sc-for>
+      </div>
+
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{},&quot;state&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;full&quot;,&quot;new&quot;],&quot;default&quot;:&quot;full&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { view: null };
+  fullEvents = [
+    { title: 'Monad Payment Router verified', when: 'Today', delta: 12, balance: 128 },
+    { title: 'Completed Monad Challenge', when: '3 days ago', delta: 8, balance: 116 },
+    { title: 'Verification failed', when: '5 days ago', delta: -2, balance: 108 },
+    { title: 'Ledger Sync Adapter verified', when: '2 weeks ago', delta: 24, balance: 110 },
+    { title: 'Peer review completed', when: '3 weeks ago', delta: 6, balance: 86 },
+    { title: 'Wallet Batching Module verified', when: 'Jul 2026', delta: 40, balance: 80 },
+    { title: 'Identity created', when: 'Jun 2026', delta: 40, balance: 40 },
+  ];
+  newEvents = [
+    { title: 'Completed Starter Challenge', when: '2 days ago', delta: 8, balance: 48 },
+    { title: 'Identity created', when: '4 days ago', delta: 40, balance: 40 },
+  ];
+  fullWork = [
+    { name: 'Monad Payment Router', meta: 'Verified today · Monad', score: '94' },
+    { name: 'Ledger Sync Adapter', meta: 'Verified 2 weeks ago', score: '91' },
+    { name: 'Wallet Batching Module', meta: 'Verified Jul 2026', score: '88' },
+  ];
+  newWork = [
+    { name: 'Starter Challenge', meta: 'Verified 2 days ago', score: '82' },
+  ];
+  renderVals() {
+    const view = this.state.view ?? this.props.state ?? 'full';
+    const isNew = view === 'new';
+    const raw = isNew ? this.newEvents : this.fullEvents;
+    const events = raw.map(e => ({
+      title: e.title,
+      when: e.when,
+      delta: (e.delta >= 0 ? '+' : '\u2212') + Math.abs(e.delta),
+      deltaColor: e.delta >= 0 ? '#B8FF3D' : '#E5675E',
+      dot: e.delta >= 0 ? '#B8FF3D' : '#E5675E',
+      balance: e.balance,
+    }));
+    // sparkline: oldest -> newest balances
+    const balances = raw.map(e => e.balance).slice().reverse();
+    const min = Math.min(...balances), max = Math.max(...balances);
+    const rng = (max - min) || 1;
+    const n = balances.length;
+    const pts = balances.map((b, i) => {
+      const x = n === 1 ? 300 : (i / (n - 1)) * 592 + 4;
+      const y = 108 - ((b - min) / rng) * 96;
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    });
+    const lastXY = pts[pts.length - 1].split(',');
+    const score = isNew ? 48 : 128;
+    const tabBase = "font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.08em;padding:7px 13px;border:none;background:transparent;cursor:pointer;transition:background .15s,color .15s;white-space:nowrap;";
+    return {
+      score,
+      status: 'Verified Builder',
+      weekDelta: isNew ? '+8 this week' : '+20 this week',
+      events,
+      work: isNew ? this.newWork : this.fullWork,
+      isNew,
+      sparkPoints: pts.join(' '),
+      sparkLastX: lastXY[0],
+      sparkLastY: lastXY[1],
+      spanStart: isNew ? 'JUN 2026' : 'JUN 2026',
+      tabFull: tabBase + (!isNew ? 'background:#F3F3EE;color:#090A0B;' : 'color:#8B9095;'),
+      tabNew: tabBase + (isNew ? 'background:#F3F3EE;color:#090A0B;' : 'color:#8B9095;'),
+      showFull: () => this.setState({ view: 'full' }),
+      showNew: () => this.setState({ view: 'new' }),
+    };
+  }
+}
+</script>
+</body>
+</html>
