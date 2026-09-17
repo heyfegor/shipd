@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+/*
+ * Shipd design tokens.
+ * Source of truth: the .dc.html prototypes + docs/brand/visual-system.md.
+ * Shipd is a committed dark aesthetic — flat, restrained, high-contrast surfaces.
+ * No glassmorphism, gradients, or decorative effects (see docs/brand/rejection-list.md).
+ * Signal lime is reserved strictly for verified / pass / positive states — never decoration.
+ */
+:root {
+  /* Surfaces */
+  --background: #090a0b; /* Obsidian — page background */
+  --surface: #131517; /* Carbon — cards, inputs, panels */
+  --surface-alt: #0b0c0d; /* alt section band */
+
+  /* Text */
+  --text: #f3f3ee; /* warm off-white — primary (never pure #FFFFFF) */
+  --text-muted: #8b9095; /* secondary */
+  --text-faint: #5b6065; /* tertiary / labels */
+
+  /* Signal + semantic */
+  --signal: #b8ff3d; /* verified / pass / positive ONLY */
+  --danger: #e5675e; /* fail / negative ONLY */
+  --track: #26292c; /* progress track, inactive segments */
+
+  /* Fonts (bound to next/font variables in layout.tsx) */
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+/* Expose tokens to Tailwind v4 utilities (bg-background, text-muted, font-mono, …). */
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-signal: var(--signal);
+  --color-danger: var(--danger);
+  --color-track: var(--track);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--signal);
+  color: var(--background);
+}

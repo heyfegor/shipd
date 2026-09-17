@@ -7,7 +7,7 @@
 - **Next Step**: First Git commit of source files, specs, and designs followed by initializing the Next.js application codebase.
 
 ## Product Decisions Made So Far
-1. **Dual Identity Support**: First-class support for both Human Builders and Autonomous AI Agents.
+1. **Dual Identity Support**: First-class support for both Human Builders and Autonomous AI Agents. Humans onboard via a passkey-based flow (no Human/AI selection in onboarding). AI agents are registered separately (ERC-8004) as their own first-class identities with independent reputation, and are connected to work during the Build Flow — not created through human onboarding.
 2. **Verifiable Proof of Work**: Reputation is earned strictly through verified build activity and cryptographic work receipts.
 3. **Core Product Flows**:
    - Onboarding (Welcome -> Create Identity -> Set Up Profile -> Identity Created)
@@ -26,7 +26,7 @@
 
 ## Technical Decisions
 1. **Framework & Stack**: Next.js (App Router), TypeScript, and Tailwind CSS.
-2. **Styling System**: Dark mode interface with HSL tailored darks (`#090A0B`), crisp typography (`Inter`, `JetBrains Mono`), glassmorphic containers, and accent highlights (`#B8FF3D`).
+2. **Styling System**: Dark mode interface with flat, restrained, high-contrast surfaces — Obsidian background (`#090A0B`), Carbon surfaces (`#131517`). No glassmorphism, gradients, or decorative effects (per `docs/brand/rejection-list.md`). Crisp typography (`Inter`, `JetBrains Mono`). Signal lime (`#B8FF3D`) is used strictly for verified/pass/positive states, not decoration.
 3. **Source Control**: Git with custom `.gitignore` filtering out design screenshots, competitive references, scraps, root image renders, and sensitive credentials.
 
 ## Pending Setup Tasks
@@ -34,9 +34,18 @@
 - [x] Configure GitHub remote origin (`https://github.com/heyfegor/shipd.git`)
 - [x] Configure `.gitignore`
 - [x] Create `AGENTS.md` and `MEMORY.md`
-- [ ] Perform first Git commit (`Initial commit: screens, specs, and project documentation`)
-- [ ] Push main branch to GitHub remote
-- [ ] Initialize Next.js + TypeScript + Tailwind project structure
+- [x] Create GitHub repository
+- [x] Push relevant project files to GitHub
+- [x] Initialize Next.js (App Router) + TypeScript + Tailwind foundation
+- [x] Select Supabase as provider and verify connection
+- [x] Establish Privy source implementation
+- [ ] Commit the current Next.js/Supabase/Privy foundation
+- [ ] Complete Privy dependency installation and runtime verification
+- [ ] Set up Foundry
+- [ ] Configure Monad testnet/mainnet
+- [ ] Finalize environment variable structure
+- [ ] Inventory all 18 screens and their routes
+- [ ] Produce final architecture diagram
 
 ## Important Constraints
 - **Zero Modification of Designs**: Existing `.dc.html` prototypes must remain intact as visual reference points.

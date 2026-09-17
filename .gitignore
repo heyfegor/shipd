@@ -35,6 +35,14 @@ scraps/
 **/Screenshot_*.png
 **/Screenshot_*.jpeg
 
+# Next.js
+/.next/
+/out/
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+/coverage
+
 # IDE & Editor Directories
 .gemini/
 .vscode/

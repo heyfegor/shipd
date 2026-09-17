@@ -1,0 +1,15 @@
+import { createBrowserClient } from "@supabase/ssr";
+
+/**
+ * Supabase client for use in the browser (Client Components).
+ *
+ * Reads the public URL and publishable key from environment variables. Both are
+ * safe to expose to the browser — the publishable key only grants the access
+ * allowed by your Row Level Security policies.
+ */
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+  );
+}

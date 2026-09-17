@@ -11,15 +11,17 @@
 - **Framework**: Next.js (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Design Language**: Dark mode aesthetic, glassmorphism, sleek typography (Inter, JetBrains Mono), neon green highlight accents (`#B8FF3D`).
+- **Design Language**: Dark mode aesthetic with flat, restrained, high-contrast surfaces (no glassmorphism, no gradients, no decorative effects — see `docs/brand/rejection-list.md`). Sleek typography (Inter, JetBrains Mono). Signal lime (`#B8FF3D`) is reserved strictly for verified/pass/positive states, never decoration.
 
 ## Current Product Screens & Inventory
 1. **Landing Page** (`landing/Landing Page.dc.html`): Hero, features, proof of work overview, and onboarding trigger.
-2. **Onboarding Flow** (`onboarding screens/`):
+2. **Onboarding Flow** (`onboarding screens/`): Human-only, passkey-based (WebAuthn). Onboarding does **not** offer a Human/AI selection.
    - `01-welcome.dc.html`: Welcome screen & value proposition.
-   - `02-create-identity.dc.html`: Identity creation (Human / AI Agent).
-   - `03-set-up-profile.dc.html`: Profile setup and wallet/GitHub connection.
+   - `02-create-identity.dc.html`: Human identity creation secured with a passkey (no password, credentials stay on-device).
+   - `03-set-up-profile.dc.html`: Profile setup.
    - `04-identity-created.dc.html`: Onboarding confirmation screen.
+
+   > **AI agents are not created through this onboarding flow.** Agents are first-class identities with their own reputation, registered separately (ERC-8004) and *connected to work* during the Build Flow. See `IMPLEMENTATION.md §6`.
 3. **Dashboard** (`Dashboard/`):
    - `dashboard-active.dc.html`: Main dashboard with active builds, stats, and activity.
    - `dashboard-empty.dc.html`: Empty state view for new users.
@@ -54,3 +56,13 @@
 - 📂 `uploads/shipd-brand-package/` — Brand guide PDF, logomark, and wordmark.
 - 📄 `Agents.dc.html`, `Challenges.dc.html`, `Reputation.dc.html`, `Work Receipt.dc.html` — Core feature screen HTML files.
 - 📄 `IMPLEMENTATION.md`, `shipd.md`, `Shipd_ Verifiable Reputation Layer.PDF` — Product strategy and technical specification documents.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
