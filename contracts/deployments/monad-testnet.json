@@ -1,0 +1,19 @@
+{
+  "network": "monad-testnet",
+  "chainId": 10143,
+  "deployedAtBlock": 64102325,
+  "contracts": {
+    "ShipdRegistry": {
+      "address": "0x5d7917c2066bE3015a5d44CE3654059b10407870",
+      "deploymentTx": "0xf9f8f485c3f608a66615f6985a2844793df240f27ec6a494bccca5daad707780"
+    },
+    "WorkReceipt": {
+      "address": "0xb9F228729E14071f22a6a9D72a1B750450F48B4B",
+      "deploymentTx": "0xf186daddf11c89c2f35148b01759b48841a7e9c377034ef5255951529fd8b890"
+    },
+    "Reputation": {
+      "address": "0x8d3F20f2232acA4daAac80184d84A700A44B322F",
+      "deploymentTx": "0x33c7a3be2ac953fc1172db3734e0bde1ff69dd2007ba9af5a63b761930c7da4e"
+    }
+  }
+}

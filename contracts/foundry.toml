@@ -1,0 +1,13 @@
+[profile.default]
+src = "src"
+script = "script"
+test = "test"
+out = "out"
+libs = ["lib"]
+
+solc_version = "0.8.37"
+network = "monad"
+
+[rpc_endpoints]
+monad_testnet = "https://testnet-rpc.monad.xyz"
+monad_mainnet = "https://rpc.monad.xyz"
