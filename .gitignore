@@ -49,3 +49,17 @@ next-env.d.ts
 .gemini/
 .vscode/
 .idea/
+
+# Design prototypes, copy specs, brand material (kept locally, out of the repo)
+*.dc.html
+support.js
+Shipd_ Verifiable Reputation Layer.PDF
+onboarding screens/
+onboarding screen copy/
+Build Flow/
+Build Management/
+Dashboard/
+landing/
+docs/
+uploads/
+contracts/lib/
