@@ -42,8 +42,52 @@ export const privyConfig: PrivyClientConfig = {
 /**
  * The public Privy app id. Safe to expose to the browser (it is the client
  * identifier, not a secret). Empty when the environment variable is unset.
+ *
+ * A Privy app id is a lowercase-alphanumeric CUID-style handle (~25 chars). A
+ * non-empty but malformed value makes `PrivyProvider` throw "Cannot initialize
+ * the Privy provider with an invalid Privy app ID", which crashes the static
+ * prerender and fails the whole build (e.g. on Vercel for `/_not-found`).
+ *
+ * So we normalize and validate here, and treat any value we cannot trust as
+ * "unconfigured" rather than letting it reach Privy:
+ *   1. Strip surrounding quotes and stray whitespace/newlines — the two most
+ *      common env-paste mistakes.
+ *   2. Require the remaining string to match the Privy app-id shape. Anything
+ *      else (a leftover placeholder like `your-privy-app-id`, a truncated
+ *      fragment, embedded punctuation) collapses to "" so the provider is
+ *      skipped and the app still boots, instead of crashing the build.
  */
-export const PRIVY_APP_ID = process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "";
+const PRIVY_APP_ID_PATTERN = /^[a-z0-9]{20,}$/;
+
+function readRawPrivyAppId(): string {
+  let id = (process.env.NEXT_PUBLIC_PRIVY_APP_ID ?? "").trim();
+  if (
+    id.length >= 2 &&
+    ((id.startsWith('"') && id.endsWith('"')) || (id.startsWith("'") && id.endsWith("'")))
+  ) {
+    id = id.slice(1, -1).trim();
+  }
+  return id;
+}
+
+function readPrivyAppId(): string {
+  const id = readRawPrivyAppId();
+  if (id.length === 0) return "";
+  if (PRIVY_APP_ID_PATTERN.test(id)) return id;
+
+  // Non-empty but not a valid app id: warn (this surfaces in the Vercel build
+  // log, the one place a deploy debugger looks) and disable Privy rather than
+  // crash the prerender.
+  console.warn(
+    "[shipd] NEXT_PUBLIC_PRIVY_APP_ID is set but does not look like a valid " +
+      "Privy app id — Privy is disabled. Check the value in your environment " +
+      "(it should be the lowercase app id from the Privy dashboard, with no " +
+      "quotes or surrounding text).",
+  );
+  return "";
+}
+
+export const PRIVY_APP_ID = readPrivyAppId();
 
 /** Whether a Privy app id is present so the provider can initialize. */
 export const isPrivyConfigured = PRIVY_APP_ID.length > 0;
