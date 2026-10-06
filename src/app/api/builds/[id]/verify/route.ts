@@ -11,6 +11,12 @@ import {
 import { buildVerifiedDelta } from "@/lib/reputation/policy";
 import { runVerification } from "@/lib/verification/engine";
 
+// This route sends three sequential on-chain txs (verification → receipt →
+// reputation) and waits for each to mine, so it needs headroom beyond the
+// default serverless timeout. Always run it dynamically (never cached).
+export const maxDuration = 60;
+export const dynamic = "force-dynamic";
+
 /**
  * POST /api/builds/:id/verify
  *
