@@ -14,9 +14,11 @@ desktop.ini
 .thumbnail
 
 # Dependencies & Build Artifacts
+# Anchor dist/ and build/ to the repo root so they don't also ignore app
+# routes like src/app/build/ (the Build Flow) or any nested dist/ segment.
 node_modules/
-dist/
-build/
+/dist/
+/build/
 .cache/
 npm-debug.log*
 yarn-debug.log*

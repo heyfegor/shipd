@@ -62,3 +62,130 @@ body {
   background: var(--signal);
   color: var(--background);
 }
+
+/*
+ * Shared component primitives, ported from the .dc.html prototypes so screens
+ * render 1:1. Hairline borders use the off-white text color at low opacity, as
+ * in the prototypes (rgba(243,243,238,·)).
+ */
+:root {
+  --hair: rgba(243, 243, 238, 0.12);
+  --hair-soft: rgba(243, 243, 238, 0.08);
+  --hair-strong: rgba(243, 243, 238, 0.16);
+  --signal-border: rgba(184, 255, 61, 0.35);
+  --danger-border: rgba(229, 103, 94, 0.32);
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+p {
+  text-wrap: pretty;
+}
+
+.shpd-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.shpd-card {
+  background: var(--surface);
+  border: 1px solid var(--hair);
+  border-radius: 12px;
+}
+.shpd-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--hair-strong);
+  border-radius: 5px;
+  padding: 7px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+.shpd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 550;
+  color: var(--background);
+  background: var(--text);
+  border: none;
+  border-radius: 7px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.shpd-btn:hover {
+  background: #e6e6df;
+}
+.shpd-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.shpd-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid rgba(243, 243, 238, 0.2);
+  border-radius: 7px;
+  padding: 13px 26px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.shpd-btn-ghost:hover {
+  border-color: rgba(243, 243, 238, 0.32);
+}
+.shpd-btn-ghost:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.shpd-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--hair-strong);
+  border-radius: 7px;
+  padding: 14px 16px;
+  font-size: 16px;
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+.shpd-input::placeholder {
+  color: var(--text-faint);
+}
+.shpd-input:focus {
+  outline: none;
+  border-color: rgba(243, 243, 238, 0.32);
+}
+.shpd-row {
+  transition: border-color 0.15s, background 0.12s;
+}
+.shpd-row:hover {
+  border-color: rgba(243, 243, 238, 0.24);
+}
+
+@keyframes shpRing {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes shpPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
